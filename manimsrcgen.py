@@ -2,14 +2,17 @@ from game import Minesweeper
 from typing import IO
 
 
-def agent_prelim(file: IO, game: Minesweeper):
+def agent_prelim(file: IO, game: Minesweeper, cell_path: str = None, flagged_path: str = None, mine_path: str = None):
+    cell_path = "./graphics/cell.svg" if cell_path is None else cell_path
+    flagged_path = "./graphics/flagged.svg" if flagged_path is None else flagged_path
+    mine_path = "./graphics/pressedmine.svg" if mine_path is None else mine_path
     file.write(f"""    values = np.array({str(game.get_board()).replace(" ", ",")})
     colors = [GREY, RED, GREEN, YELLOW, BLUE, PURPLE, LIGHT_BROWN, PINK, DARK_GREY]
     rows, cols = values.shape
     tile_size = min(7 / rows, 14 / cols)
-    unclicked_cell=SVGMobject('/home/chascb/Pictures/minesweeper/cell.svg',height=tile_size,width=tile_size)
-    flagged_cell=SVGMobject('/home/chascb/Pictures/minesweeper/flagged.svg',height=tile_size,width=tile_size)
-    mine_cell=SVGMobject('/home/chascb/Pictures/minesweeper/pressedmine.svg',height=tile_size,width=tile_size)
+    unclicked_cell=SVGMobject('{cell_path}',height=tile_size,width=tile_size)
+    flagged_cell=SVGMobject('{flagged_path}',height=tile_size,width=tile_size)
+    mine_cell=SVGMobject('{mine_path}',height=tile_size,width=tile_size)
     cell_grid = Group(*(Square(tile_size) for _ in range(rows * cols))).arrange_in_grid(rows, cols, 0)
     cells = Group(*[unclicked_cell.copy() for _ in range(rows * cols)]).arrange_in_grid(rows, cols, 0)
     cells_ani = AnimationGroup(*(GrowFromCenter(cell) for cell in cells))

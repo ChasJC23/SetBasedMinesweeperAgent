@@ -16,63 +16,72 @@ def init():
     parser = argparse.ArgumentParser(description="Play an automated game of minesweeper")
     seed_group = parser.add_mutually_exclusive_group()
     seed_group.add_argument("-s", "--seed",
-                            help="specify the seed for the game",
+                            help="Specify the seed for the game",
                             type=int,
                             default=None)
     seed_pair_group = seed_group.add_argument_group()
     seed_pair_group.add_argument("--board-seed",
-                                 help="specify the seed for the game board",
+                                 help="Specify the seed for the game board",
                                  type=int)
     seed_pair_group.add_argument("--agent-seed",
-                                 help="specify the seed for the game agent",
+                                 help="Specify the seed for the game agent",
                                  type=int)
     parser.add_argument("-a", "--agent",
-                        help="specify the agent to play the game",
+                        help="Specify the agent to play the game",
                         choices=["simple", "set"],
                         default="set")
     size_group = parser.add_mutually_exclusive_group()
     size_group.add_argument("-d", "--difficulty",
-                            help="specify the difficulty of the board using defaults from the original game",
+                            help="Specify the difficulty of the board using defaults from the original game",
                             choices=["beginner", "intermediate", "expert"],
                             default="expert")
     dimensions_group = size_group.add_argument_group()
     dimensions_group.add_argument("-r", "--rows", "-H", "--height",
-                                  help="specify the number of rows of the board",
+                                  help="Specify the number of rows of the board",
                                   type=int,
                                   default=16)
     dimensions_group.add_argument("-c", "--columns", "-W", "--width",
-                                  help="specify the number of columns of the board",
+                                  help="Specify the number of columns of the board",
                                   type=int,
                                   default=30)
     dimensions_group.add_argument("-m", "--mines",
-                                  help="specify the mine count of the board",
+                                  help="Specify the mine count of the board",
                                   type=int,
                                   default=99)
     parser.add_argument("-C", "--coloured",
-                        help="specify whether the board is coloured in previews",
+                        help="Specify whether the board is coloured in previews",
                         action="store_true")
     parser.add_argument("-v", "--verbosity",
-                        help="increase output verbosity",
+                        help="Increase output verbosity",
                         action="count")
     parser.add_argument("--show-mines",
-                        help="show the location of all mines on the board",
+                        help="Show the location of all mines on the board",
                         action="store_true")
     parser.add_argument("--show-strategy",
-                        help="highlight cells indicating the strategy of the currently playing AI. "
+                        help="Highlight cells indicating the strategy of the currently playing AI. "
                              "Has no effect if verbosity is less than 3",
                         action="store_true")
     parser.add_argument("--play-count",
-                        help="the number of times the bot should play",
+                        help="The number of times the bot should play",
                         type=int,
                         default=1)
     parser.add_argument("--step-by-step",
-                        help="enables pausing the program at notable moments",
+                        help="Enables pausing the program at notable moments",
                         action="store_true")
     parser.add_argument("--first-safe",
-                        help="ensures the first tile clicked cannot be a mine",
+                        help="Ensures the first tile clicked cannot be a mine",
                         action="store_true")
     parser.add_argument("--manim-src",
-                        help="file location for generated manimation source file for this game.",
+                        help="File location for generated manimation source file for this game.",
+                        default=None)
+    parser.add_argument("--cell-graphic-path",
+                        help="File location for cell graphic used in the generated manimation source file.",
+                        default=None)
+    parser.add_argument("--flag-graphic-path",
+                        help="File location for the flagged cell graphic used in the generated manimation source file.",
+                        default=None)
+    parser.add_argument("--mine-graphic-path",
+                        help="File location for the mine graphic used in the generated manimation source file.",
                         default=None)
     args = parser.parse_args()
 

@@ -41,8 +41,11 @@ class SetAgent(SimpleAgent):
         show_strategy = kwargs['show_strategy'] if 'show_strategy' in kwargs.keys() else False
         step_by_step = kwargs['step_by_step'] if 'step_by_step' in kwargs.keys() else False
         mf = kwargs['manim_file'] if 'manim_file' in kwargs.keys() else None
+        cell_path = kwargs['cell_graphic_path'] if 'cell_graphic_path' in kwargs.keys() else None
+        flagged_path = kwargs['flagged_graphic_path'] if 'flagged_graphic_path' in kwargs.keys() else None
+        mine_path = kwargs['mine_graphic_path'] if 'mine_graphic_path' in kwargs.keys() else None
         if mf:
-            agent_prelim(mf, self.game)
+            agent_prelim(mf, self.game, cell_path=cell_path, flagged_path=flagged_path, mine_path=mine_path)
         # the tiles we know we need to step onto next
         to_step = {(self.random.randrange(self.game.row_count), self.random.randrange(self.game.col_count))}
         # the tiles we know to flag next
